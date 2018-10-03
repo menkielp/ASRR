@@ -1,0 +1,249 @@
+﻿<UserControl x:Class="ASRR.DataPickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASRR"
+             xmlns:core="clr-namespace:ASRR.Core;assembly=ASRR.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800" Opacity="0">
+    
+    <Grid x:Name="Inlet"
+          local:VehicleProperty.CreateVehicle="{Binding Vehicle}"
+          local:DepartureProperty.DepartureArea="{Binding DepartureArea}">
+
+        <!--Warstwa przyciemniajaca okno-->
+        <Button Style="{StaticResource DimmableOverlayButton}"
+                Visibility="{Binding DimmableOverlayFlag, Converter={local:BoolToVisibilityConverter}}"
+                local:AnimationProperty.DoAnimation="{Binding DimmableOverlayAnimation}"
+                Command="{Binding DimmableOverlayCommand}"/>
+
+        <!--Dolne Menu-->
+        <Grid x:Name="RightBottomMenu" 
+              HorizontalAlignment="Right" 
+              VerticalAlignment="Bottom" 
+              Height="40">
+            
+            <Grid.ColumnDefinitions>                
+                <!--Przycisk ze statystykami-->
+                <ColumnDefinition/>
+                <!--Przycisk z informacjami-->
+                <ColumnDefinition/>
+                <!--Przycisk powrotu-->
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--Przycisk ze statystykami-->
+            <Button Style="{StaticResource NormalBottomMenuButton}" 
+                    Content="{StaticResource Stat}"
+                    Grid.Column="0"
+                    Command="{Binding StatCommand}"/>
+
+            <!--Przycisk z informacjami-->  
+            <Button Style="{StaticResource NormalBottomMenuButton}" 
+                    Content="{StaticResource Info}"
+                    Grid.Column="1"
+                    Command="{Binding HelpCommand}"/>
+
+            <!--Przycisk powrotu-->
+            <Button Style="{StaticResource ReturnBottomMenuButton}" 
+                    Content="{StaticResource Return}"
+                    Grid.Column="2"
+                    Command="{Binding ReturnCommand}"/>
+        </Grid>
+
+        <!--Przyciski dodawania pojazdow-->
+        <StackPanel Orientation="Horizontal" 
+                    Margin="0 100 0 0"        
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Stretch">
+
+            <!--przycisk dodawania pojazdow na pasie 1-->
+            <Button Style="{StaticResource AddVehicleButton}"
+                    IsEnabled="{Binding AddVehicleEnabled}"
+                    Command="{Binding AddVehicleCommand}"
+                    CommandParameter="{x:Static core:Lane.Lane1}"
+                    Visibility="{Binding CurrentDirectionLane1, 
+                                         Source={x:Static core:DI.laneDirectionPickerVM}, 
+                                         Converter={local:LaneExistToButtonVisibilityConverter}}"/>
+            
+            <!--przycisk dodawania pojazdow na pasie 2-->
+            <Button Style="{StaticResource AddVehicleButton}"
+                    IsEnabled="{Binding AddVehicleEnabled}"
+                    Command="{Binding AddVehicleCommand}"
+                    CommandParameter="{x:Static core:Lane.Lane2}"
+                    Visibility="{Binding CurrentDirectionLane2, 
+                                         Source={x:Static core:DI.laneDirectionPickerVM}, 
+                                         Converter={local:LaneExistToButtonVisibilityConverter}}"/>
+            
+            <!--przycisk dodawania pojazdow na pasie 3-->
+            <Button Style="{StaticResource AddVehicleButton}"
+                    IsEnabled="{Binding AddVehicleEnabled}"
+                    Command="{Binding AddVehicleCommand}"
+                    CommandParameter="{x:Static core:Lane.Lane3}"
+                    Visibility="{Binding CurrentDirectionLane3, 
+                                         Source={x:Static core:DI.laneDirectionPickerVM}, 
+                                         Converter={local:LaneExistToButtonVisibilityConverter}}"/>
+            
+            <!--przycisk dodawania pojazdow na pasie 4-->
+            <Button Style="{StaticResource AddVehicleButton}"
+                    IsEnabled="{Binding AddVehicleEnabled}"
+                    Command="{Binding AddVehicleCommand}"
+                    CommandParameter="{x:Static core:Lane.Lane4}"
+                    Visibility="{Binding CurrentDirectionLane4, 
+                                         Source={x:Static core:DI.laneDirectionPickerVM}, 
+                                         Converter={local:LaneExistToButtonVisibilityConverter}}"/>
+
+        </StackPanel>
+
+        <!--rodzaj pojazdu do wybrania-->
+        <Grid HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom"     
+                local:AnimationProperty.DoAnimation="{Binding AddVehicleAnimation}"
+                Visibility="{Binding AddVehicleEnabled, 
+                                    Converter={local:BoolToVisibilityConverter}, 
+                                    ConverterParameter=True}"
+              Height="{Binding ElementName=Inlet, Path=ActualHeight, Converter={local:SizeAndPositionConverter}, ConverterParameter=2}"
+              Width="{Binding ElementName=Inlet, Path=ActualWidth, Converter={local:SizeAndPositionConverter}, ConverterParameter=5}"
+              Margin="{Binding ActualWidth, RelativeSource={RelativeSource Self}, Converter={local:ControlWidthToMarginConverter}, ConverterParameter=LeftMargin}">
+            <Border Padding="5">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <!--Samochod osobowy lub dostawczy-->
+                        <RowDefinition/>
+                        <!--Autobus-->
+                        <RowDefinition/>
+                        <!--Autobus przegubowy-->
+                        <RowDefinition/>
+                        <!--Samochod ciezarowy-->
+                        <RowDefinition/>
+                        <!--Samochod ciezarowy z przyczepa-->
+                        <RowDefinition/>
+                        <!--Motor/Rower-->
+                        <RowDefinition/>
+                        <!--Inny rodzaj pojazdu-->
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    
+
+                    <!--Samochod osobowy lub dostawczy-->
+                    <Button Content="SOD"                            
+                            Background="{StaticResource YellowGreenBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}"                      
+                            CommandParameter="{x:Static core:VehicleType.SOD}" 
+                            ToolTip="Samochód osobowy lub dostawczy"/>
+
+                    <!--Autobus-->
+                    <Button Content="A"
+                            Grid.Row="1"
+                            Background="{StaticResource YellowBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}" 
+                            CommandParameter="{x:Static core:VehicleType.A}" 
+                            ToolTip="Autobus"/>
+
+                    <!--Autobus przegubowy-->
+                    <Button Content="AP" 
+                            Grid.Row="2"
+                            Background="{StaticResource GoldBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}" 
+                            CommandParameter="{x:Static core:VehicleType.AP}" 
+                            ToolTip="Autobus przegubowy"/>
+
+                    <!--Samochod ciezarowy-->
+                    <Button Content="SC" 
+                            Grid.Row="3"
+                            Background="{StaticResource GoldenrodBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}" 
+                            CommandParameter="{x:Static core:VehicleType.SC}" 
+                            ToolTip="Samochód ciężarowy"/>
+
+                    <!--Samochod ciezarowy z przyczepa-->
+                    <Button Content="SCP"
+                            Grid.Row="4"
+                            Background="{StaticResource OrangeBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}"
+                            CommandParameter="{x:Static core:VehicleType.SCP}" 
+                            ToolTip="Samochód ciężarowy z przyczepą lub ciągnik siodłowy z naczepą"/>
+
+                    <!--Motor/Rower-->
+                    <Button Content="M/R" 
+                            Grid.Row="5"
+                            Background="{StaticResource DarkOrangeBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}" 
+                            CommandParameter="{x:Static core:VehicleType.MR}" 
+                            ToolTip="Motor/Rower"/> 
+
+                    <!--Inny rodzaj pojazdu-->
+                    <Button Content="INNE" 
+                            Grid.Row="6"
+                            Background="{StaticResource RedBrush}" 
+                            Style="{StaticResource VehicleTypeButton}"
+                            Command="{Binding CreateVehicleCommand}" 
+                            CommandParameter="{x:Static core:VehicleType.INNE}" 
+                            ToolTip="Inny typ pojazdu"/>
+
+                </Grid>
+               
+            </Border>
+
+        </Grid>
+
+        <!--Pomoc-->
+        <local:HelpControl local:AnimationProperty.DoAnimation="{Binding HelpAnimation}"
+                           Visibility="{Binding DimmableOverlayFlag, Converter={local:BoolToVisibilityConverter}}"
+                           Panel.ZIndex="9"/>
+
+        <!--Statystyki-->
+        <local:StatControl local:AnimationProperty.DoAnimation="{Binding StatAnimation , Source={x:Static core:DI.dataPickerVM}}"
+                           Visibility="{Binding DimmableOverlayFlag, Converter={local:BoolToVisibilityConverter}, Source={x:Static core:DI.dataPickerVM}}"
+                           Panel.ZIndex="9"/>
+
+        <!--Zegar-->
+        <local:ClockControl Panel.ZIndex="2"/>
+        
+        <!--Przechodnie-->
+        <Border Background="{StaticResource WhiteBrush}"
+                BorderBrush="{StaticResource BlackBrush}"
+                BorderThickness="1"
+                Margin="5"
+                CornerRadius="4"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top">
+            
+            <Grid ShowGridLines="True">                                
+                <Grid.ColumnDefinitions>
+                    <!--Liczba + obrazek przechodnia-->
+                    <ColumnDefinition/>
+                    <!--Przycisk dodawania przechodnia-->
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--Liczba + obrazek przechodnia-->
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Pedestrian, FallbackValue=10}" 
+                               Margin="2 0 0 -4" 
+                               VerticalAlignment="Bottom"  
+                               FontFamily="{StaticResource CatamaranThin}"/>
+                    <Image Source="pack://application:,,,/Images/Pieszy.png"
+                           RenderOptions.BitmapScalingMode="NearestNeighbor"
+                           Width="12" Height="20" Margin="0 0 1 0"
+                           />
+                </StackPanel>
+                
+                <!--Przycisk dodawania przechodnia-->
+                <Button Grid.Column="1" 
+                        Style="{StaticResource pedestrianButton}" 
+                        Command="{Binding PedestrianCommand}"/>
+                
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

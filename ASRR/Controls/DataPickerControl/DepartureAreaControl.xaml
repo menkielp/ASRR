@@ -1,0 +1,31 @@
+﻿<UserControl x:Class="ASRR.DepartureAreaControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASRR"
+             mc:Ignorable="d"
+             VerticalAlignment="Top"
+             Height="80"
+             Width="120">
+    
+    <!--stefa DROP-->
+    <Border x:Name="dropArea"            
+            CornerRadius="5"
+            Background="{StaticResource BlackBrush}"
+            Opacity="0.2"
+            BorderBrush="{StaticResource WhiteBrush}"
+            BorderThickness="1"
+            AllowDrop="True">
+        
+        <Viewbox Stretch="Uniform">
+            <TextBlock Text="DROP"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="2"
+                       Foreground="{StaticResource WhiteBrush}"/>
+
+        </Viewbox>
+
+    </Border>
+</UserControl>

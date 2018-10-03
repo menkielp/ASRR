@@ -1,0 +1,225 @@
+﻿<UserControl x:Class="ASRR.InletControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASRR"
+             xmlns:core="clr-namespace:ASRR.Core;assembly=ASRR.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <!--wlot-->
+    <Grid x:Name="myInlet" 
+          Background="{StaticResource AsphaltBrush}">
+
+        <!--#region linie gdy liczba pasow jest rowna 2 lub 4-->
+        <!--Linia srodkowa-->
+        <Line x:Name="MiddleLine"
+        Visibility="{Binding NumberOfLanes, Converter={local:NumberOfLanesToLineVisibilityConverter}, ConverterParameter={x:Static core:HorizontalLine.Middle}}"
+        X1="{Binding ElementName=myInlet, Path=ActualWidth, Converter={local:SizeAndPositionConverter}, ConverterParameter=2.0}"
+        Y1="{Binding ElementName=myInlet, Path=ActualHeight}"
+        X2="{Binding ElementName=myInlet, Path=ActualWidth, Converter={local:SizeAndPositionConverter}, ConverterParameter=2.0}"
+        Y2="150"/>
+
+        <!--linia pierwsza z lewej od srodkowej-->
+        <Line Visibility="{Binding NumberOfLanes, Converter={local:NumberOfLanesToLineVisibilityConverter}, ConverterParameter={x:Static core:HorizontalLine.FirstOnLeftFromMiddle}}"
+        X1="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=-1}"
+        Y1="{Binding ElementName=myInlet, Path=ActualHeight}"
+        X2="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=-1}"
+        Y2="150"/>
+
+        <!--linia pierwsza z prawej od srodkowej-->
+        <Line Visibility="{Binding NumberOfLanes, Converter={local:NumberOfLanesToLineVisibilityConverter}, ConverterParameter={x:Static core:HorizontalLine.FirstOnRightFromMiddle}}"
+        X1="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=1}"
+        Y1="{Binding ElementName=myInlet, Path=ActualHeight}"
+        X2="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=1}"
+        Y2="150"/>
+
+        <!--#endregion-->
+
+        <!--#region linie gdy liczba pasow jest rowna 1 lub 3-->
+
+        <!--srodkowa lewa-->
+
+        <Line x:Name="InnerLeft" Visibility="{Binding NumberOfLanes, Converter={local:NumberOfLanesToLineVisibilityConverter}, ConverterParameter={x:Static core:HorizontalLine.InnerLeft}}"
+        X1="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=-3}"
+        Y1="{Binding ElementName=myInlet, Path=ActualHeight}"
+        X2="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=-3}"
+        Y2="150"/>
+
+        <!--srodkowa prawa-->
+        <Line x:Name="InnerRight" Visibility="{Binding NumberOfLanes, Converter={local:NumberOfLanesToLineVisibilityConverter}, ConverterParameter={x:Static core:HorizontalLine.InnerRight}}"
+        X1="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=3}"
+        Y1="{Binding ElementName=myInlet, Path=ActualHeight}"
+        X2="{Binding ElementName=MiddleLine, Path=X1, Converter={local:InletSizeToLinePositionConverter}, ConverterParameter=3}"
+        Y2="150"/>
+        
+        <!--#endregion-->
+       
+        <!--#region znaki poziome-->
+        <!--znak poziomy pas 1-->
+        <Image Source="{Binding CurrentDirectionLane1, Converter={local:NumberOfLanesToDirectionImageConverter}}"
+                    Width="40" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"
+                    RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <Image.Margin>
+                <MultiBinding Converter="{local:HorizontalSignPositionConverter}" ConverterParameter="{x:Static core:Lane.Lane1}">
+                    <Binding ElementName="myInlet" Path="ActualWidth"/>
+                    <Binding Path="NumberOfLanes"/>
+                </MultiBinding>
+            </Image.Margin>
+        </Image>
+
+
+        <!--znak poziomy pas 2-->
+
+        <Image Source="{Binding CurrentDirectionLane2, Converter={local:NumberOfLanesToDirectionImageConverter}}"
+               Width="40" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"
+               RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <Image.Margin>
+                <MultiBinding Converter="{local:HorizontalSignPositionConverter}" ConverterParameter="{x:Static core:Lane.Lane2}">
+                    <Binding ElementName="myInlet" Path="ActualWidth"/>
+                    <Binding Path="NumberOfLanes"/>
+                </MultiBinding>
+            </Image.Margin>
+        </Image>
+
+
+        <!--znak poziomy pas 3-->
+
+        <Image Source="{Binding CurrentDirectionLane3, Converter={local:NumberOfLanesToDirectionImageConverter}}"
+               Width="40" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"
+               RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <Image.Margin>
+                <MultiBinding Converter="{local:HorizontalSignPositionConverter}" ConverterParameter="{x:Static core:Lane.Lane3}">
+                    <Binding ElementName="myInlet" Path="ActualWidth"/>
+                    <Binding Path="NumberOfLanes"/>
+                </MultiBinding>
+            </Image.Margin>
+        </Image>
+
+
+        <!--znak poziomy pas 4-->
+
+        <Image Source="{Binding CurrentDirectionLane4, Converter={local:NumberOfLanesToDirectionImageConverter}}"
+               Width="40" Height="60" HorizontalAlignment="Left" VerticalAlignment="Top"
+               RenderOptions.BitmapScalingMode="NearestNeighbor">
+            <Image.Margin>
+                <MultiBinding Converter="{local:HorizontalSignPositionConverter}" ConverterParameter="{x:Static core:Lane.Lane4}">
+                    <Binding ElementName="myInlet" Path="ActualWidth"/>
+                    <Binding Path="NumberOfLanes"/>
+                </MultiBinding>
+            </Image.Margin>
+        </Image>
+
+        <!--#endregion -->
+
+        <!--#region zielen na wlocie-->
+        <Canvas>
+            
+            <!--zielen na dole po lewej-->
+            <Border x:Name="LeftBottomGrass"
+                    Style="{StaticResource GrassBorder}" 
+                    CornerRadius="{Binding LeftOutletVisibility, Converter={local:GrassCornerRadiusConverter}, ConverterParameter={x:Static core:Grass.LeftBottom}}" 
+                    BorderThickness="{Binding LeftOutletVisibility, Converter={local:GrassBorderThicknessConverter}, ConverterParameter={x:Static core:Grass.LeftBottom}}"                  
+                    Height="{Binding ElementName=myInlet, Path=ActualHeight}"
+                    Canvas.Top="150">
+                <Border.Width>
+                    <MultiBinding Converter="{local:NumberOfLanesToGrassSizePositionConverter}" 
+                            ConverterParameter="{x:Static core:Grass.LeftBottom}">
+                        <Binding ElementName="MiddleLine" Path="X1"/>
+                        <Binding Path="NumberOfLanes" />
+                    </MultiBinding>
+                </Border.Width>
+            </Border>
+
+            <!--zielen na dole po prawej-->
+            <Border x:Name="RightBottomGrass"
+                    Style="{StaticResource GrassBorder}" 
+                    CornerRadius="{Binding RightOutletVisibility, Converter={local:GrassCornerRadiusConverter}, ConverterParameter={x:Static core:Grass.RightBottom}}" 
+                    BorderThickness="{Binding RightOutletVisibility, Converter={local:GrassBorderThicknessConverter}, ConverterParameter={x:Static core:Grass.RightBottom}}"                    
+                    Width="{Binding ElementName=LeftBottomGrass, Path=Width}" 
+                    Height="{Binding ElementName=myInlet, Path=ActualHeight}"
+                    Canvas.Top="150">
+                <Canvas.Left>
+                    <MultiBinding Converter="{local:NumberOfLanesToGrassSizePositionConverter}" 
+                            ConverterParameter="{x:Static core:Grass.RightBottom}">
+                        <Binding ElementName="MiddleLine" Path="X1"/>
+                        <Binding Path="NumberOfLanes"/>
+                    </MultiBinding>
+                </Canvas.Left>
+            </Border>
+
+            <!--zielen u gory po lewej-->
+            <Border Style="{StaticResource GrassBorder}"                     
+                    Width="{Binding ElementName=LeftBottomGrass, Path=Width}" 
+                    Height="50">
+                <Border.BorderThickness>
+                    <MultiBinding Converter="{local:GrassBorderThicknessMultiConverter}"
+                                  ConverterParameter="{x:Static core:Grass.LeftTop}">
+                        <Binding Path="StraightOutletVisibility"/>
+                        <Binding Path="LeftOutletVisibility"/>
+                    </MultiBinding>
+                </Border.BorderThickness>
+                <Border.CornerRadius>
+                    <MultiBinding Converter="{local:GrassCornerRadiusMultiConverter}"
+                                  ConverterParameter="{x:Static core:Grass.LeftTop}">
+                        <Binding Path="StraightOutletVisibility"/>
+                        <Binding Path="LeftOutletVisibility"/>
+                    </MultiBinding>
+                </Border.CornerRadius>
+            </Border>
+
+
+            <!--zielen u gory po prawej-->
+            <Border Style="{StaticResource GrassBorder}"                     
+                    Width="{Binding ElementName=RightBottomGrass, Path=Width}" 
+                    Height="50"
+                    Canvas.Left="{Binding ElementName=RightBottomGrass, Path=(Canvas.Left)}">
+                <Border.BorderThickness>
+                    <MultiBinding Converter="{local:GrassBorderThicknessMultiConverter}"
+                                  ConverterParameter="{x:Static core:Grass.RightTop}">
+                        <Binding Path="StraightOutletVisibility"/>
+                        <Binding Path="RightOutletVisibility"/>
+                    </MultiBinding>
+                </Border.BorderThickness>
+                <Border.CornerRadius>
+                    <MultiBinding Converter="{local:GrassCornerRadiusMultiConverter}"
+                                  ConverterParameter="{x:Static core:Grass.RightTop}">
+                        <Binding Path="StraightOutletVisibility"/>
+                        <Binding Path="RightOutletVisibility"/>
+                    </MultiBinding>
+                </Border.CornerRadius>
+            </Border>
+
+
+            <!--zielen po lewej gdy nie ma drogi w lewo-->
+            <Border Style="{StaticResource GrassBorder}"
+                    BorderThickness="0 0 2 0"
+                    Visibility="{Binding LeftOutletVisibility, Converter={local:BoolToVisibilityConverter}, ConverterParameter=True}"
+                    Width="{Binding ElementName=LeftBottomGrass, Path=Width}" 
+                    Height="100" 
+                    Canvas.Top="50"/>
+
+            <!--zielen po prawej gdy nie ma drogi w prawo-->
+            <Border Style="{StaticResource GrassBorder}"
+                    BorderThickness="2 0 0 0"
+                    Visibility="{Binding RightOutletVisibility, Converter={local:BoolToVisibilityConverter}, ConverterParameter=True}"
+                    Width="{Binding ElementName=RightBottomGrass, Path=Width}" 
+                    Height="100"
+                    Canvas.Left="{Binding ElementName=RightBottomGrass, Path=(Canvas.Left)}" 
+                    Canvas.Top="50"/>
+
+            <!--zielen u gory gdy nie ma drogi prosto-->
+            <Border Style="{StaticResource GrassBorder}"
+                    BorderThickness="0 0 0 2"
+                    Panel.ZIndex="1"
+                    Visibility="{Binding StraightOutletVisibility, Converter={local:BoolToVisibilityConverter}, ConverterParameter=True}"
+                    Width="{Binding ElementName=myInlet, Path=ActualWidth}"
+                    Height="50"/>
+        </Canvas>
+
+        <!--#endregion-->
+
+    </Grid>
+
+</UserControl>

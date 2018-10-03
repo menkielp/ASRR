@@ -1,0 +1,116 @@
+﻿<UserControl x:Class="ASRR.SideMenuControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASRR"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+        <!--Menu-->
+    <Border Width="180"
+            Background="{StaticResource VeryLightGreenBrush}"
+            BorderThickness="0 0 2 0"
+            BorderBrush="{StaticResource BlackBrush}">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <!--wybor wlotu i separator-->
+                <RowDefinition Height="auto"/>
+                <!-- wybor kierunkow na pasach ruchu i separator-->
+                <RowDefinition Height="auto"/>
+                <!--checkbox z wyborem czy jest sygnalizacja-->
+                <RowDefinition Height="*"/>
+                <!--przyciski przejscia do nastepnego okna i resetu-->
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+
+            <!--wybor wlotu-->
+            <Grid Grid.Row="0" Margin="0 0 0 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0" 
+                       Content="Wlot" 
+                       Margin="5 5 5 0" 
+                       FontSize="{StaticResource FontSizeRegular}"/>
+
+                <ComboBox  Margin="5 5 5 0" 
+                           Width="40"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Right"
+                           SelectedItem="{Binding SelectedInlet}" 
+                           ItemsSource="{Binding InletCollection}"
+                           Grid.Column="1"/>
+
+            </Grid>
+
+            <!--separator pomiedzy wlot a liczba pasow-->
+            <Separator Grid.Row="0" 
+                       Margin="7 0 7 0" 
+                       VerticalAlignment="Bottom" 
+                       Background="{StaticResource GrassBrush}"/>
+
+            <!-- wybor kierunkow na pasach ruchu-->
+            <local:LaneDirectionPickerControl Grid.Row="1"/>
+
+            <!--separator pomiedzy liczba pasow a sygnalizacja-->
+            <Separator Grid.Row="1" 
+                       Margin="7 0 7 0" 
+                       VerticalAlignment="Bottom" 
+                       Background="{StaticResource GrassBrush}"/>
+
+            <!--checkbox z wyborem czy jest sygnalizacja-->
+            <CheckBox x:Name="traficLight" 
+                        FontSize="{StaticResource FontSizeRegular}"
+                        Content="Sygnalizacja" 
+                        Margin="10 5 5 0" 
+                        IsChecked="{Binding TrafficLightChecked}" 
+                        Grid.Row="2" 
+                        VerticalAlignment="Top"/>
+
+            <!--przyciski przejscia do nastepnego okna i resetu-->
+            <Grid Grid.Row="3">
+
+                <Grid.RowDefinitions>
+                    <!--Przycisk resetowania ustawien-->
+                    <RowDefinition Height="Auto"/>
+                    <!--Przycisk przejscia do ankietowania pojazdow-->
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!--Przycisk resetowania ustawien-->
+                <Button x:Name="Reset" 
+                        Content="Reset" 
+                        Margin="5" 
+                        Grid.Row="0" 
+                        Background="{StaticResource LightRedBrush}" 
+                        BorderBrush="{StaticResource RedBrush}"
+                        ToolTip="Zresetuj wlot"
+                        Command="{Binding ResetInletCommand}" 
+                        Style="{StaticResource MagnifyButtonRed}">
+                </Button>
+
+                <!--Przycisk przejscia do ankietowania pojazdow-->
+                <Button x:Name="Next" 
+                        Content="Start" 
+                        Margin="5 0 5 5" 
+                        Grid.Row="1" 
+                        Background="{StaticResource LightGreenBrush}"
+                        BorderBrush="{StaticResource GrassBrush}"
+                        ToolTip="Przejdź do ankiety"
+                        Style="{StaticResource MagnifyButtonGreen}" 
+                        Command="{Binding StartCollectDataCommand}">
+
+                </Button>
+            </Grid>
+
+        </Grid>
+
+    </Border>
+       
+      
+</UserControl>

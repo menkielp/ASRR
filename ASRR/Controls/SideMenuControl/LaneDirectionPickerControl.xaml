@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="ASRR.LaneDirectionPickerControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ASRR"
+             xmlns:core="clr-namespace:ASRR.Core;assembly=ASRR.Core"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid SnapsToDevicePixels="True" 
+          Background="{StaticResource VeryLightGreenBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--wybor liczby pasow-->
+        
+        <DockPanel Grid.Row="0" Margin="5 0 5 0">
+
+            <Label Content="Liczba pasów"  
+                   FontSize="{StaticResource FontSizeRegular}" 
+                   FontWeight="Bold"/>
+
+            <ComboBox x:Name="lanes"  
+                      VerticalAlignment="Center" 
+                      Width="40"
+                      HorizontalAlignment="Right"
+                      SelectedIndex="{Binding NumberOfLanes}" >
+                <ComboBoxItem Content="1" />
+                <ComboBoxItem Content="2" />
+                <ComboBoxItem Content="3" />
+                <ComboBoxItem Content="4" />
+            </ComboBox>
+
+        </DockPanel>
+
+        <!--wybor kierunku dla kazdego pasa-->
+        <Border Grid.Row="1" 
+                Margin="5">
+            
+            <Grid>
+                <Grid.RowDefinitions>
+                    <!--wybor kierunkow dla pierwszego pasa-->
+                    <RowDefinition Height="auto"/>
+                    <!--wybor kierunkow dla drugiego pasa-->
+                    <RowDefinition Height="auto"/>
+                    <!--wybor kierunkow dla trzeciego pasa-->
+                    <RowDefinition Height="auto"/>
+                    <!--wybor kierunkow dla czwartego pasa-->
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                
+                <!--dla pasa pierwszego-->
+                <ComboBox Grid.Row="0" 
+                          Margin="5 0 0 5"
+                          SelectedItem="{Binding CurrentDirectionLane1, Converter={local:DirectionNoneToNullConverter}}" 
+                          ItemsSource="{Binding Lane1}"/>
+
+                <!--dla pasa drugiego-->
+                <ComboBox Grid.Row="1" 
+                          Margin="5 0 0 5" 
+                          SelectedItem="{Binding CurrentDirectionLane2, Converter={local:DirectionNoneToNullConverter}}" 
+                          ItemsSource="{Binding Lane2}" 
+                          Visibility="{Binding ElementName=lanes, 
+                                               Path=SelectedIndex, 
+                                               Converter={local:LanesToComboBoxVisibilityConverter}, 
+                                               ConverterParameter={x:Static core:Lane.Lane2}}"/>
+                <!--dla pasa trzeciego-->
+                <ComboBox Grid.Row="2" 
+                          Margin="5 0 0 5" 
+                          SelectedItem="{Binding CurrentDirectionLane3, Converter={local:DirectionNoneToNullConverter}}" 
+                          ItemsSource="{Binding Lane3}"
+                          Visibility="{Binding ElementName=lanes, 
+                                               Path=SelectedIndex, 
+                                               Converter={local:LanesToComboBoxVisibilityConverter}, 
+                                               ConverterParameter={x:Static core:Lane.Lane3}}"/>
+                
+                <!--dla pasa czwartego-->
+                <ComboBox Grid.Row="3" 
+                          Margin="5 0 0 5"
+                          SelectedItem="{Binding CurrentDirectionLane4, Converter={local:DirectionNoneToNullConverter}}" 
+                          ItemsSource="{Binding Lane4}" 
+                          Visibility="{Binding ElementName=lanes, 
+                                               Path=SelectedIndex, 
+                                               Converter={local:LanesToComboBoxVisibilityConverter}, 
+                                               ConverterParameter={x:Static core:Lane.Lane4}}"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

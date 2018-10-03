@@ -1,0 +1,382 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ASRR">
+
+
+    <ResourceDictionary.MergedDictionaries>
+        <!--wazna jest kolejnosc-->
+        <ResourceDictionary Source="/Styles/Colors.xaml"/>
+        <ResourceDictionary Source="/Styles/Fonts.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+
+    <!--podstawa przyciskow-->
+    <Style TargetType="{x:Type Button}" x:Key="BaseButtonStyle">
+        <Setter Property="WindowChrome.IsHitTestVisibleInChrome" Value="True"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+    
+    <!--prycisk z logiem-->
+    <Style TargetType="{x:Type Button}" x:Key="LogoButton" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="TextElement.Foreground" Value="{StaticResource GrassBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Padding="{TemplateBinding Padding}" Background="{TemplateBinding Background}">
+                        <Viewbox>
+                            <TextBlock Text="{StaticResource Logo}" 
+                                       FontFamily="{StaticResource FontAwesome}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       Foreground="{TemplateBinding Foreground}"/>
+                        </Viewbox>                        
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource DarkGreenBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--podstawa stylu dla przyciskow minimalizowania/maksymalizowania/zamykania-->
+    <Style TargetType="{x:Type Button}" x:Key="SystemButtonBaseStyle" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="Transparent"/>        
+        <Setter Property="MinWidth" Value="30"/>
+        <Setter Property="FontFamily" Value="{StaticResource CatamaranBold}"/>
+        <Setter Property="Foreground" Value="{StaticResource BlackBrush}"/>        
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}">
+                        <TextBlock VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"
+                                   Text="{TemplateBinding Content}"
+                                   SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                   />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!--styl dla przyciskow minimalizowania/maksymalizowania-->
+    <Style TargetType="{x:Type Button}" x:Key="MimMaxSystemButtonStyle" BasedOn="{StaticResource SystemButtonBaseStyle}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource DarkGreenBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--styl dla przycisku zamykania okna-->
+    <Style TargetType="{x:Type Button}" x:Key="CloseSystemButtonStyle" BasedOn="{StaticResource SystemButtonBaseStyle}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource RedBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+        
+    <!--Podstawa przycisku powiekszajacego sie-->
+    <Style TargetType="{x:Type Button}" x:Key="MagnifyButtonBase">
+        <Setter Property="FontSize" Value="{StaticResource FontSizeRegular}"/>
+        <Setter Property="FontFamily" Value="{StaticResource CatamaranBold}"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Width" Value="140"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border BorderThickness="1" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            CornerRadius="5" 
+                            Background="{TemplateBinding Background}">                        
+                        <Viewbox Stretch="Uniform">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Content="{TemplateBinding Content}"/>
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--przycisk powiekszajacy sie czerwony-->
+    <Style TargetType="{x:Type Button}" x:Key="MagnifyButtonRed" BasedOn="{StaticResource MagnifyButtonBase}">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource RedColor}"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Height)" To="27" Duration="0:0:0.1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Width)" To="150" Duration="0:0:0.1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource LightRedColor}"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Height)" To="25" Duration="0:0:0.1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Width)" To="140" Duration="0:0:0.1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--przycisk powiekszajacy sie zielony-->
+    <Style TargetType="{x:Type Button}" x:Key="MagnifyButtonGreen" BasedOn="{StaticResource MagnifyButtonBase}">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource GrassColor}"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Height)" To="27" Duration="0:0:0.1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Width)" To="150" Duration="0:0:0.1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="(Button.Background).(SolidColorBrush.Color)" Duration="0:0:0.1" To="{StaticResource LightGreenColor}"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Height)" To="25" Duration="0:0:0.1"/>
+                        <DoubleAnimation Storyboard.TargetProperty="(Button.Width)" To="140" Duration="0:0:0.1"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Przycisk dolnego menu-->
+    <Style TargetType="{x:Type Button}" x:Key="BaseBottomMenuButton" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Foreground" Value="{StaticResource DarkGrassBrush}"/>
+        <Setter Property="Background" Value="{StaticResource GrassBrush}"/>
+        <Setter Property="MinWidth" Value="35"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}"
+                            Padding="2 5 2 5">
+                        <Viewbox>
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontFamily="{StaticResource FontAwesome}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Foreground="{TemplateBinding Foreground}"/>
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource LightGrassColor}"
+                                        Duration="0:0:0.15"
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                    </Storyboard>
+                </BeginStoryboard>   
+            </EventTrigger>
+            
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource GrassColor}"
+                                        Duration="0:0:0.15"
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                    </Storyboard>                    
+                </BeginStoryboard>
+            </EventTrigger>
+            
+        </Style.Triggers>
+    </Style>
+
+    <!--Przycisk powrotu dolnego menu-->
+    <Style TargetType="{x:Type Button}" x:Key="ReturnBottomMenuButton" BasedOn="{StaticResource BaseBottomMenuButton}">
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource RedBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+                
+    </Style>
+
+    <!--Normalny przycisk dolnego menu-->
+    <Style TargetType="{x:Type Button}" x:Key="NormalBottomMenuButton" BasedOn="{StaticResource BaseBottomMenuButton}">
+
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource WhiteBrush}"/>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+
+    <!--Przycisk DialogBox-->
+    <Style TargetType="{x:Type Button}" x:Key="DialogButton" BasedOn="{StaticResource BaseBottomMenuButton}">
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="{StaticResource WhiteColor}"
+                                        Duration="0:0:0.15"
+                                        Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>            
+        </Style.Triggers>
+    </Style>
+
+    <!--Przycisk dodawania pojazdow-->
+    <Style TargetType="{x:Type Button}" x:Key="AddVehicleButton" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Background" Value="{StaticResource WhiteBrush}"/>
+        <Setter Property="Opacity" Value="0"/>
+        <Setter Property="Width" Value="44"/>
+        <Setter Property="Foreground" Value="{StaticResource AsphaltBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border Background="{TemplateBinding Background}" 
+                            Padding="8">
+                        <Viewbox Stretch="Uniform" 
+                                 VerticalAlignment="Top">
+                            <TextBlock Text="{StaticResource Plus}"
+                                       Foreground="{TemplateBinding Foreground}"
+                                       FontFamily="{StaticResource FontAwesome}"/>
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+                        
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="0.3" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <DoubleAnimation To="0" Duration="0:0:0.2" Storyboard.TargetProperty="Opacity"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    <!--Przcisk wyboru rodzaju pojazdu-->
+    <Style TargetType="{x:Type Button}" x:Key="VehicleTypeButton" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Margin="0 1 0 1"> 
+                        <Viewbox Stretch="Uniform">
+                            <TextBlock Text="{TemplateBinding Content}"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                        </Viewbox>
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0, 0.5" EndPoint="1, 0.5">
+                                <GradientStop Color="{StaticResource GrassColor}" Offset="0"/>
+                                <GradientStop Color="{StaticResource LimeColor}" Offset="0.2" x:Name="GradientStop1"/>
+                                <GradientStop Color="{StaticResource LimeColor}" Offset="0.8" x:Name="GradientStop2"/>
+                                <GradientStop Color="{StaticResource GrassColor}" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <Border.Triggers>
+                            <EventTrigger RoutedEvent="Button.MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.05" Duration="0:0:0.3" Storyboard.TargetProperty="Offset" Storyboard.TargetName="GradientStop1"/>
+                                        <DoubleAnimation To="0.95" Duration="0:0:0.3" Storyboard.TargetProperty="Offset" Storyboard.TargetName="GradientStop2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <EventTrigger RoutedEvent="Button.MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation To="0.2" Duration="0:0:0.3" Storyboard.TargetProperty="Offset" Storyboard.TargetName="GradientStop1"/>
+                                        <DoubleAnimation To="0.8" Duration="0:0:0.3" Storyboard.TargetProperty="Offset" Storyboard.TargetName="GradientStop2"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </Border.Triggers>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>        
+    </Style>
+    
+    <!--Warstwa sciemniajaca-->
+    <Style TargetType="{x:Type Button}" x:Key="DimmableOverlayButton" BasedOn="{StaticResource BaseButtonStyle}">
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Panel.ZIndex" Value="8"/>
+        <Setter Property="Opacity" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource BlackBrush}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Background="{TemplateBinding Background}"
+                          HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                          VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--Przechodnie-->
+    <Style TargetType="{x:Type Button}" x:Key="pedestrianButton">
+        <Setter Property="Background" Value="{StaticResource LimeBrush}"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="FontFamily" Value="{StaticResource CatamaranBold}"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border CornerRadius="0 4 4 0" Background="{TemplateBinding Background}">
+                        <Viewbox Stretch="Uniform"
+                                 VerticalAlignment="Center" 
+                                 HorizontalAlignment="Center">
+                            <TextBlock Text="+"/>
+                        </Viewbox>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>        
+        
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Button.MouseEnter">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" To="{StaticResource GrassColor}" Duration="0:0:0.15"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+
+            <EventTrigger RoutedEvent="Button.MouseLeave">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)" To="{StaticResource LimeColor}" Duration="0:0:0.15"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

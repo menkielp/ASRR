@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASRR", "ASRR\ASRR.csproj", "{A53A561F-B692-44FD-A58C-ABE8988E3944}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ASRR.Core", "ASRR.Core\ASRR.Core.csproj", "{EF993C4C-C802-40CE-8E07-3A08635B7420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A53A561F-B692-44FD-A58C-ABE8988E3944}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A53A561F-B692-44FD-A58C-ABE8988E3944}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A53A561F-B692-44FD-A58C-ABE8988E3944}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A53A561F-B692-44FD-A58C-ABE8988E3944}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF993C4C-C802-40CE-8E07-3A08635B7420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF993C4C-C802-40CE-8E07-3A08635B7420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF993C4C-C802-40CE-8E07-3A08635B7420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF993C4C-C802-40CE-8E07-3A08635B7420}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

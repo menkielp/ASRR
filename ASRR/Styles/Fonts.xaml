@@ -1,0 +1,40 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:ASRR">
+
+    <FontFamily x:Key="CatamaranRegular">pack://application;,,,/Fonts/#Catamaran Regular</FontFamily>
+    <FontFamily x:Key="CatamaranExtraLight">pack://application;,,,/Fonts/#Catamaran ExtraLight</FontFamily>
+    <FontFamily x:Key="CatamaranLight">pack://application;,,,/Fonts/#Catamaran Light</FontFamily>
+    <FontFamily x:Key="CatamaranThin">pack://application;,,,/Fonts/#Catamaran Thin</FontFamily>
+    <FontFamily x:Key="CatamaranSemiBold">pack://application;,,,/Fonts/#Catamaran SemiBold</FontFamily>
+    <FontFamily x:Key="CatamaranBold">pack://application;,,,/Fonts/#Catamaran Bold</FontFamily>
+    <FontFamily x:Key="FontAwesome">pack://application;,,,/Fonts/#FontAwesome</FontFamily>
+
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource CatamaranBold}"/>
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource CatamaranBold}"/>
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type ComboBoxItem}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource BaseStyle}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}"/>
+    <Style TargetType="{x:Type CheckBox}" BasedOn="{StaticResource BaseTextBlockStyle}"/>
+
+    
+    <!--FontAwesome UNICODE-->
+    <sys:String x:Key="Logo">&#xf1b9;</sys:String>
+    <sys:String x:Key="ArrowDown">&#xf107;</sys:String>
+    <sys:String x:Key="Check">&#xf00c;</sys:String>
+    <sys:String x:Key="Return">&#xf0a8;</sys:String>
+    <sys:String x:Key="Info">&#xf05a;</sys:String>
+    <sys:String x:Key="Plus">&#xf0fe;</sys:String>
+    <sys:String x:Key="Stat">&#xf080;</sys:String>
+
+    <sys:Double x:Key="FontSizeRegular">16</sys:Double>
+    
+</ResourceDictionary>
